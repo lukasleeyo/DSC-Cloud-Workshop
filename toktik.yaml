@@ -1,0 +1,62 @@
+# Deployment Config
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "toktik"
+  namespace: "default"
+  labels:
+    app: "toktik"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "toktik"
+  template:
+    metadata:
+      labels:
+        app: "toktik"
+    spec:
+      containers:
+      - name: "toktik-1"
+        image: "registry.hub.docker.com/lukasleeyo/toktik:v2"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "toktik-hpa-efsh"
+  namespace: "default"
+  labels:
+    app: "toktik"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "toktik"
+    apiVersion: "apps/v1"
+  minReplicas: 3
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mytoktik-service
+spec:
+  sessionAffinity: ClientIP
+  type: LoadBalancer
+  selector:
+    app: toktik
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8501
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 8501
