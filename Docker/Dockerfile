@@ -22,4 +22,4 @@ ENTRYPOINT ["streamlit", "run"]
 
 
 # run the application
-CMD ["frontend.py"]
+CMD ["app.py"]
