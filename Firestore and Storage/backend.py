@@ -11,8 +11,9 @@ import operator
 GCP_DB = InitGCP.initFirestore()
 GCP_STORAGE = InitGCP.initStorage()
 
-BUCKET_NAME = "<YOUR_BUCKET_NAME>" # your GCP Storage bucket name
 POSTS_TABLE_NAME = '<YOUR_DATABASE_TABLE_NAME>' # Your GCP Firestore database table name
+BUCKET_NAME = "<YOUR_BUCKET_NAME>" # your GCP Storage bucket name
+
 
 SG_TIME_ZONE = pytz.timezone("Asia/Singapore")
 
