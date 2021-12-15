@@ -8,7 +8,7 @@ import operator
 
 
 # Initialize to GCP
-GCP_DB = InitGCP.initFirestore()
+GCP_FIRESTORE = InitGCP.initFirestore()
 GCP_STORAGE = InitGCP.initStorage()
 
 POSTS_TABLE_NAME = '<YOUR_DATABASE_TABLE_NAME>' # Your GCP Firestore database table name
@@ -58,14 +58,14 @@ class Backend:
           mediaURL = Backend.uploadFile(file, fileType)
           newPost = Post(postID=postID, dateTime=now, mediaType= fileType, mediaURL= mediaURL)
 
-          GCP_DB.collection(POSTS_TABLE_NAME).document(newPost.postID).set(newPost.to_dict())
+          GCP_FIRESTORE.collection(POSTS_TABLE_NAME).document(newPost.postID).set(newPost.to_dict())
 
       
 
      # get new posts that is later than given dateTime
      def getNewPosts(dateTime):
           posts = []
-          posts_ref = GCP_DB.collection(POSTS_TABLE_NAME).where(u'dateTime', u'>', dateTime).get()
+          posts_ref = GCP_FIRESTORE.collection(POSTS_TABLE_NAME).where(u'dateTime', u'>', dateTime).get()
 
           for doc in posts_ref:
                docDict = doc.to_dict()
