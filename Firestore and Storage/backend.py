@@ -11,7 +11,7 @@ import operator
 GCP_FIRESTORE = InitGCP.initFirestore()
 GCP_STORAGE = InitGCP.initStorage()
 
-POSTS_TABLE_NAME = '<YOUR_DATABASE_TABLE_NAME>' # Your GCP Firestore database table name
+POSTS_TABLE_NAME = "<YOUR_DATABASE_TABLE_NAME>" # Your GCP Firestore database table name
 BUCKET_NAME = "<YOUR_BUCKET_NAME>" # your GCP Storage bucket name
 
 
