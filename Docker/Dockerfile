@@ -1,25 +1,27 @@
+# FROM scratch if not importing an image
 FROM python:3
 
 
-# Set working directory to use
-WORKDIR /app
-
-
-# install dependencies
+# using pip to install streamlit library
 RUN pip install streamlit
 
 
-# expose port for streamlit to work
+
+# Set working directory as "app"
+WORKDIR /app
+
+# Copy our "app.py" to the working directory
+COPY ./app.py /app
+
+
+
+# expose port 8501 for streamlit
 EXPOSE 8501
 
 
-# Copy our app from the current directory to the working area.
-COPY . /app
 
-
-# create an entry point to make our image executable.
+# create an entry point to make our image executable
 ENTRYPOINT ["streamlit", "run"]
 
-
-# run the application
+# run the application -> [ENTRYPOINT] [CMD] -> "streamlit run app.py"
 CMD ["app.py"]
